@@ -71,7 +71,7 @@ const ContactState = (props) => {
 
   // Filter Contacts
   const filterContact = (text) => {
-    dispatch({ type: FILTER_CONTACTS, payload: yexy });
+    dispatch({ type: FILTER_CONTACTS, payload: text });
   };
 
   // Clear Filter
