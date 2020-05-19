@@ -1,32 +1,46 @@
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, Fragment, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import ContactContext from '../../context/contact/contactContext';
 import ContactItem from './ContactItem';
+import Spinner from '../layout/Spinner';
 
 const Contacts = () => {
   const contactContext = useContext(ContactContext);
 
-  const { contacts, filtered } = contactContext;
+  const { contacts, filtered, getContacts, loading } = contactContext;
 
-  if (contacts.length === 0) {
+  useEffect(() => {
+    getContacts();
+    // eslint-disable-next-line
+  }, []);
+
+  if (contacts !== null && contacts.length === 0 && !loading) {
     return <h4>Let's Begin Saving Your Close Ones!!</h4>;
   }
 
   return (
     <Fragment>
-      <TransitionGroup>
-        {filtered !== null
-          ? filtered.map((contact) => (
-              <CSSTransition key={contact.id} timeout={500} classNames='item'>
-                <ContactItem contact={contact} />
-              </CSSTransition>
-            ))
-          : contacts.map((contact) => (
-              <CSSTransition key={contact.id} timeout={500} classNames='item'>
-                <ContactItem key={contact.id} contact={contact} />
-              </CSSTransition>
-            ))}
-      </TransitionGroup>
+      {contacts !== null && !loading ? (
+        <TransitionGroup>
+          {filtered !== null
+            ? filtered.map((contact) => (
+                <CSSTransition key={contact.id} timeout={500} classNames='item'>
+                  <ContactItem contact={contact} />
+                </CSSTransition>
+              ))
+            : contacts.map((contact) => (
+                <CSSTransition
+                  key={contact._id}
+                  timeout={500}
+                  classNames='item'
+                >
+                  <ContactItem key={contact._id} contact={contact} />
+                </CSSTransition>
+              ))}
+        </TransitionGroup>
+      ) : (
+        <Spinner />
+      )}
     </Fragment>
   );
 };

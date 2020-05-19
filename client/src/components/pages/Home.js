@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Fragment } from 'react';
 import Contacts from '../contacts/Contacts';
 import ContactForm from '../contacts/ContactForm';
 import ContactFilter from '../contacts/ContactFilter';
@@ -12,15 +12,24 @@ const Home = () => {
   }, []);
 
   return (
-    <div className='grid-2'>
-      <div>
-        <ContactForm />
+    <Fragment>
+      <div className='text-center'>
+        <h1>
+          Hello {authContext.user && authContext.user.name}, Welcome to your own
+          Phonebook
+        </h1>
       </div>
-      <div>
-        <ContactFilter />
-        <Contacts />
+      <br />
+      <div className='grid-2'>
+        <div>
+          <ContactForm />
+        </div>
+        <div>
+          <ContactFilter />
+          <Contacts />
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 export default Home;
