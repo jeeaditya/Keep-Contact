@@ -1,4 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://todoAppUser:9089832282@cluster0-cea2d.mongodb.net/KeepContact?retryWrites=true&w=majority",
-  "jwtSecret": "AdisSecretText"
-}
